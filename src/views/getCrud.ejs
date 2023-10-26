@@ -1,0 +1,43 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      table,
+      td,
+      th {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+      }
+
+      .table {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Email</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < listUsers.length; i++) { %>
+            <tr>
+            <td><%= listUsers[i].id %></td>
+            <td><%= listUsers[i].email %></td>
+            <td><%= listUsers[i].firstName %></td>
+            <td><%= listUsers[i].lastName %></td>
+            </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>

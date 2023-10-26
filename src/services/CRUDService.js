@@ -17,7 +17,7 @@ let createNewUser = async (data) => {
         roleId: data.roleId,
         positionId: data.positionId,
       });
-      resolve('Create user successfully');
+      resolve("Create user successfully");
     } catch (error) {
       reject(error);
     }
@@ -35,6 +35,18 @@ let hashUserPassword = (password) => {
   });
 };
 
+let getAllUsers = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let listUsers = await db.User.findAll({ raw: true });
+      resolve(listUsers);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createNewUser,
+  getAllUsers,
 };
