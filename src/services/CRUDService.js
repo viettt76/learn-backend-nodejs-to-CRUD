@@ -69,7 +69,7 @@ let updateUserData = (data) => {
         let listUsers = await db.User.findAll();
         resolve(listUsers);
       } else {
-        resolve("Not found user");
+        resolve();
       }
     } catch (error) {
       reject(error);
@@ -77,9 +77,28 @@ let updateUserData = (data) => {
   });
 };
 
+let deleteUserById = (idUser) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findByPk(idUser)
+            if(user) {
+                await user.destroy()
+                let listUsers = await db.User.findAll();
+                resolve(listUsers);
+            } else {
+                resolve();
+            }
+            
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
   createNewUser,
   getAllUsers,
   getUserById,
   updateUserData,
+  deleteUserById
 };

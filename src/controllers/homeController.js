@@ -26,8 +26,8 @@ let displayGetCRUD = async (req, res) => {
 };
 
 let editCRUD = async (req, res) => {
-  let idUser = req.query.id;
-  let userData = await CRUDService.getUserById(idUser);
+  let userId = req.query.id;
+  let userData = await CRUDService.getUserById(userId);
   if (userData) {
     return res.render("editCrud.ejs", { userData: userData });
   } else {
@@ -38,7 +38,21 @@ let editCRUD = async (req, res) => {
 let putCRUD = async (req, res) => {
   let data = req.body;
   let listUsers = await CRUDService.updateUserData(data);
-  return res.render("getCrud.ejs", { listUsers });
+  if (listUsers) {
+    return res.render("getCrud.ejs", { listUsers });
+  } else {
+    return res.send("Cannot update user");
+  }
+};
+
+let deleteCRUD = async (req, res) => {
+  let userId = req.query.id;
+    let listUsers = await CRUDService.deleteUserById(userId);
+    if (listUsers) {
+      return res.render("getCrud.ejs", { listUsers });
+    } else {
+      return res.send("Cannot update user");
+    }
 };
 
 module.exports = {
@@ -48,4 +62,5 @@ module.exports = {
   displayGetCRUD,
   editCRUD,
   putCRUD,
+  deleteCRUD,
 };
