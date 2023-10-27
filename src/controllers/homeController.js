@@ -11,7 +11,7 @@ let getHomePage = async (req, res) => {
 };
 
 let createUser = (req, res) => {
-  return res.render("createUser.ejs");
+  return res.render("createCrud.ejs");
 };
 
 let postCRUD = async (req, res) => {
@@ -25,9 +25,27 @@ let displayGetCRUD = async (req, res) => {
   return res.render("getCrud.ejs", { listUsers: listUsers });
 };
 
+let editCRUD = async (req, res) => {
+  let idUser = req.query.id;
+  let userData = await CRUDService.getUserById(idUser);
+  if (userData) {
+    return res.render("editCrud.ejs", { userData: userData });
+  } else {
+    return res.send("Cannot find user");
+  }
+};
+
+let putCRUD = async (req, res) => {
+  let data = req.body;
+  let listUsers = await CRUDService.updateUserData(data);
+  return res.render("getCrud.ejs", { listUsers });
+};
+
 module.exports = {
   getHomePage,
   createUser,
   postCRUD,
   displayGetCRUD,
+  editCRUD,
+  putCRUD,
 };
